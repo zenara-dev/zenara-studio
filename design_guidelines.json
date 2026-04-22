@@ -1,0 +1,136 @@
+{
+  "theme": "Light",
+  "archetype": "Archetype 4 (Swiss & High-Contrast)",
+  "agency_name": "Z-Digital Solutions",
+  "currency": "INR (₹)",
+  "typography": {
+    "headings": {
+      "fontFamily": "Cabinet Grotesk, sans-serif",
+      "weights": ["400", "800"],
+      "usage": "H1: text-5xl md:text-7xl font-extrabold tracking-tighter uppercase; H2: text-3xl md:text-5xl font-extrabold tracking-tighter; Subheadings: text-xs tracking-[0.2em] uppercase font-bold text-gray-500",
+      "alignment": "Strictly left-aligned."
+    },
+    "body": {
+      "fontFamily": "IBM Plex Sans, sans-serif",
+      "weights": ["400", "500", "600"],
+      "usage": "text-base md:text-lg leading-relaxed text-[#050505]",
+      "alignment": "Strictly left-aligned."
+    }
+  },
+  "colors": {
+    "base": {
+      "background": "#F9F9F9",
+      "surface": "#FFFFFF",
+      "text": "#050505",
+      "border": "#E5E5E5"
+    },
+    "accent": {
+      "primary": "#FF3300",
+      "hover": "#CC2900"
+    },
+    "utility": {
+      "muted_text": "#737373",
+      "dark_surface": "#050505",
+      "dark_surface_text": "#F9F9F9"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing, Optical Clarity, Strict Grids. Never center-align. Break symmetry.",
+    "scale": {
+      "section_padding": "py-24 md:py-32",
+      "container_padding": "px-6 md:px-12 lg:px-24",
+      "gap_large": "gap-16 md:gap-24",
+      "gap_medium": "gap-8 md:gap-12"
+    },
+    "grid_system": {
+      "bento_marketing": "grid-cols-1 md:grid-cols-12 gap-8. Heavy reliance on 1px solid borders to expose the grid.",
+      "pricing_cards": "grid-cols-1 md:grid-cols-3 gap-0. Border collapse style (no gaps, just 1px borders between columns).",
+      "borders": "Expose the skeleton. border-t border-b border-l border-r border-[#E5E5E5]."
+    }
+  },
+  "components": {
+    "hero": {
+      "structure": "Asymmetric text on the left (spanning 8 columns), abstract structural image on the right or spanning full width with overlay.",
+      "heading": "Massive text. 'Z-DIGITAL SOLUTIONS'. Tracking-tighter.",
+      "cta": "Flat background (#050505), crisp square edges, no radius. Hover: Background #FF3300, text #FFFFFF."
+    },
+    "navigation": {
+      "structure": "Sticky header (z-50). Solid white background (#FFFFFF) with a 1px solid bottom border (#E5E5E5). No glassmorphism for this Swiss archetype.",
+      "links": "IBM Plex Sans, text-sm, uppercase, tracking-[0.1em].",
+      "cta": "Square button, flat black background, white text."
+    },
+    "pricing": {
+      "structure": "3-column grid. Pure HTML/Tailwind. No Shadcn 'Card' (avoid generic look).",
+      "style": "Strict tabular look. 1px borders separating tiers. Hover: Lifts -translate-y-1, adds sharp shadow (shadow-[4px_4px_0_#050505]).",
+      "tiers": [
+        { "name": "One Page", "price": "₹15k", "features": ["Custom Design", "Responsive Layout", "Contact Form", "Basic SEO"] },
+        { "name": "Multi Page", "price": "₹30k", "features": ["Up to 5 Pages", "CMS Integration", "Advanced SEO", "Analytics Setup"] },
+        { "name": "Special APIs", "price": "₹40k+", "features": ["Custom Integrations", "Database Architecture", "Authentication", "Webhooks"] }
+      ]
+    },
+    "portfolio": {
+      "structure": "Bento Grid layout (Mode A). Wide gaps. Mix of large, tall, and square items.",
+      "image_treatment": "Grayscale by default (saturate-0). Full color on hover (saturate-100 transition-all)."
+    },
+    "contact_form": {
+      "structure": "Strictly functional layout. Shadcn Input, Textarea, Button (heavily customized to be square, flat, with 1px border).",
+      "integration": "Submit to backend -> Email via Resend. Trigger success toast (Sonner) on completion.",
+      "fields": ["Name", "Email", "Company", "Message"]
+    },
+    "footer": {
+      "structure": "Massive py-32 space. Dark mode inversion: bg-[#050505] text-[#F9F9F9].",
+      "heading": "Colossal text for 'LET'S TALK' (text-[10vw])."
+    }
+  },
+  "motion_and_interaction": {
+    "hover": "Instant or fast transitions (0.15s). Technical and snappy.",
+    "buttons": "Hover changes to Accent color (#FF3300) or adds a sharp, non-blurred drop shadow (shadow-[4px_4px_0px_rgba(5,5,5,1)]).",
+    "scroll": "Lenis for smooth scrolling momentum."
+  },
+  "media_urls": {
+    "hero_abstract": [
+      {
+        "url": "https://images.pexels.com/photos/31732697/pexels-photo-31732697.jpeg",
+        "description": "Close-up of a modern white architectural facade with geometric patterns and sharp lines.",
+        "category": "hero_background"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1633095514496-c453beaadb11?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwYXJjaGl0ZWN0dXJlJTIwbGluZXMlMjB3aGl0ZXxlbnwwfHx8fDE3NzY4ODIyMTN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Black and white photo of a white building",
+        "category": "section_background"
+      }
+    ],
+    "portfolio_mockups": [
+      {
+        "url": "https://images.unsplash.com/photo-1770278829720-bfb3e8a231c7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwZGlnaXRhbCUyMGRldmljZSUyMHNjcmVlbiUyMHdoaXRlfGVufDB8fHx8MTc3Njg4MjIxM3ww&ixlib=rb-4.1.0&q=85",
+        "description": "White laptop mockup",
+        "category": "portfolio_item_1"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1759505017950-25e0733b9e68?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwZGlnaXRhbCUyMGRldmljZSUyMHNjcmVlbiUyMHdoaXRlfGVufDB8fHx8MTc3Njg4MjIxM3ww&ixlib=rb-4.1.0&q=85",
+        "description": "Modern smartphone blank white screen",
+        "category": "portfolio_item_2"
+      }
+    ],
+    "services_icons": [
+      {
+        "url": "https://images.pexels.com/photos/34764468/pexels-photo-34764468.jpeg",
+        "description": "Geometric lines, to be used as abstract texture behind services",
+        "category": "texture_overlay"
+      }
+    ]
+  },
+  "testing": {
+    "attributes": "All interactive and key informational elements MUST include `data-testid` attribute (e.g., `data-testid=\"pricing-one-page-cta\"`)."
+  },
+  "instructions_to_main_agent": [
+    "Install and configure Lenis for smooth scrolling.",
+    "Implement Sonner for toast notifications on contact form submission.",
+    "Ensure all buttons and inputs are completely square (rounded-none).",
+    "Use Phosphor Icons (yarn add @phosphor-icons/react) for clean, geometric iconography.",
+    "Implement pure HTML/Tailwind grids with `border-collapse` style for the pricing section. Do not use standard Shadcn Cards here.",
+    "Ensure the contact form logic submits data and uses Resend for email notifications (mock if API keys missing, but build the structure).",
+    "Typography MUST use Cabinet Grotesk (headings) and IBM Plex Sans (body). Do NOT default to Inter.",
+    "Stick strictly to the monochromatic palette (#F9F9F9, #FFFFFF, #050505) with ONLY the Signal Red (#FF3300) as the CTA accent."
+  ]
+}
