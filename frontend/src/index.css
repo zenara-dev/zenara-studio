@@ -241,6 +241,20 @@ body {
     color: transparent;
 }
 
+/* Hide any third-party platform preview/watermark badges in bottom-right */
+#emergent-badge,
+[id*="emergent"],
+[class*="emergent-badge"],
+[class*="made-with"],
+a[href*="emergent.sh"],
+a[href*="emergent.host"],
+a[href*="emergent.dev"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 /* Shadcn tokens */
 @layer base {
     :root {

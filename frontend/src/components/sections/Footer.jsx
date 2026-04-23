@@ -84,9 +84,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 pt-6 border-t border-white/10 flex items-center justify-between flex-wrap gap-3 font-mono text-[11px] tracking-[0.2em] uppercase text-white/60">
-          <span>© {new Date().getFullYear()} Z-Digital Solutions</span>
-          <span>Made in Bangalore · Shipped worldwide</span>
+        <div className="mt-16 pt-6 border-t border-white/10 font-mono text-[11px] tracking-[0.2em] uppercase text-white/60">
+          © {new Date().getFullYear()} Z-Digital Solutions. All rights reserved.
         </div>
       </div>
     </footer>

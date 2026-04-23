@@ -54,8 +54,9 @@ class InquiryCreate(BaseModel):
     name: str = Field(min_length=1, max_length=120)
     email: EmailStr
     company: Optional[str] = Field(default=None, max_length=160)
+    service: Optional[str] = Field(default=None, max_length=60)
     budget: Optional[str] = Field(default=None, max_length=60)
-    tier: Optional[str] = Field(default=None, max_length=60)
+    tier: Optional[str] = Field(default=None, max_length=80)
     message: str = Field(min_length=1, max_length=4000)
 
 
@@ -65,6 +66,7 @@ class Inquiry(BaseModel):
     name: str
     email: EmailStr
     company: Optional[str] = None
+    service: Optional[str] = None
     budget: Optional[str] = None
     tier: Optional[str] = None
     message: str
@@ -84,9 +86,10 @@ def _inquiry_email_html(inq: Inquiry) -> str:
         <table width="100%" cellpadding="6" cellspacing="0" style="font-size:14px;">
           <tr><td style="width:140px; color:#737373;">Name</td><td><strong>{inq.name}</strong></td></tr>
           <tr><td style="color:#737373;">Email</td><td>{inq.email}</td></tr>
-          <tr><td style="color:#737373;">Company</td><td>{inq.company or '—'}</td></tr>
+          <tr><td style="color:#737373;">Service</td><td>{inq.service or '—'}</td></tr>
           <tr><td style="color:#737373;">Tier</td><td>{inq.tier or '—'}</td></tr>
           <tr><td style="color:#737373;">Budget</td><td>{inq.budget or '—'}</td></tr>
+          <tr><td style="color:#737373;">Company</td><td>{inq.company or '—'}</td></tr>
         </table>
         <div style="margin-top:24px; padding:16px; border:1px solid #E5E5E5; background:#F9F9F9; white-space:pre-wrap;">{inq.message}</div>
       </td></tr>

@@ -28,34 +28,71 @@ class TestHealth:
         assert data.get("status") == "ok"
         assert "Z-Digital" in data.get("message", "")
 
-    def test_health_email_not_configured(self, client):
+    def test_health_email_configured(self, client):
         r = client.get(f"{BASE_URL}/api/health")
         assert r.status_code == 200
         data = r.json()
         assert data.get("status") == "ok"
-        assert data.get("email_configured") is False
+        # RESEND_API_KEY and NOTIFY_EMAIL are set in backend/.env for this iteration
+        assert data.get("email_configured") is True
 
 
 # ----- Contact (inquiries) -----
 class TestContact:
-    def test_create_inquiry_valid(self, client):
+    def test_create_inquiry_valid_with_new_fields(self, client):
         payload = {
             "name": "TEST_Alice",
             "email": "TEST_alice@example.com",
             "company": "TEST_Co",
-            "tier": "Multi page",
-            "budget": "30000",
+            "service": "Website",
+            "tier": "Multi Page",
+            "budget": "₹30,000",
             "message": "We need a multi-page marketing site.",
         }
         r = client.post(f"{BASE_URL}/api/contact", json=payload)
         assert r.status_code == 201, r.text
         data = r.json()
         assert "id" in data and isinstance(data["id"], str) and len(data["id"]) > 0
-        assert data["email_sent"] is False
+        # Echo check for new fields
         assert data["name"] == payload["name"]
         assert data["email"] == payload["email"]
+        assert data["service"] == payload["service"]
         assert data["tier"] == payload["tier"]
+        assert data["budget"] == payload["budget"]
+        # Resend is configured → backend should return email_sent=true if the Resend
+        # API accepts the call. We do not hard-fail on email delivery though.
+        assert isinstance(data["email_sent"], bool)
         assert "_id" not in data
+
+    def test_create_inquiry_brand_identity(self, client):
+        payload = {
+            "name": "TEST_Brand",
+            "email": "TEST_brand@example.com",
+            "service": "Brand Identity",
+            "tier": "Professional Brand",
+            "budget": "₹50,000",
+            "message": "Need a full brand identity package for my clinic.",
+        }
+        r = client.post(f"{BASE_URL}/api/contact", json=payload)
+        assert r.status_code == 201, r.text
+        data = r.json()
+        assert data["service"] == "Brand Identity"
+        assert data["tier"] == "Professional Brand"
+        assert data["budget"] == "₹50,000"
+
+    def test_create_inquiry_minimal(self, client):
+        # service/tier/budget are optional
+        payload = {
+            "name": "TEST_Min",
+            "email": "TEST_min@example.com",
+            "message": "Minimal payload — no service/tier/budget.",
+        }
+        r = client.post(f"{BASE_URL}/api/contact", json=payload)
+        assert r.status_code == 201, r.text
+        data = r.json()
+        assert data["service"] is None
+        assert data["tier"] is None
+        assert data["budget"] is None
         # persistence check via GET list
         r2 = client.get(f"{BASE_URL}/api/contact")
         assert r2.status_code == 200

@@ -6,34 +6,76 @@ import { ArrowUpRight, Check, Warning } from "@phosphor-icons/react";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const INITIAL = { name: "", email: "", message: "" };
+const SERVICES = [
+  { key: "website", label: "Website" },
+  { key: "brand", label: "Brand Identity" },
+];
+
+const TIERS_BY_SERVICE = {
+  website: [
+    { key: "one-page", label: "One Page", price: "₹15k" },
+    { key: "multi-page", label: "Multi Page", price: "₹30k" },
+    { key: "special-apis", label: "Special APIs", price: "₹40k+" },
+  ],
+  brand: [
+    { key: "starter-identity", label: "Starter Identity", price: "₹8k" },
+    { key: "professional-brand", label: "Professional Brand", price: "₹12k" },
+    { key: "established-clinic", label: "Established Clinic", price: "₹18k" },
+  ],
+};
+
+const BUDGETS = [
+  { key: "30k", label: "₹30,000" },
+  { key: "50k", label: "₹50,000" },
+  { key: "1lakh", label: "₹1 Lakh+" },
+];
+
+const INITIAL = {
+  name: "",
+  email: "",
+  service: "",
+  tier: "",
+  budget: "",
+  message: "",
+};
+
+// Map tier label from the pricing/identity CTA event → service + tier key
+const TIER_LABEL_TO_KEY = {
+  "One Page": { service: "website", tier: "one-page" },
+  "Multi Page": { service: "website", tier: "multi-page" },
+  "Special APIs": { service: "website", tier: "special-apis" },
+  "Starter Identity": { service: "brand", tier: "starter-identity" },
+  "Professional Brand": { service: "brand", tier: "professional-brand" },
+  "Established Clinic": { service: "brand", tier: "established-clinic" },
+};
 
 export default function Contact() {
   const [form, setForm] = useState(INITIAL);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
-  // When the user clicks a tier/bundle CTA, prepend a friendly line into the
-  // message so the info is still captured without adding extra form fields.
+  // When the user clicks a tier/bundle CTA elsewhere on the page, pre-select
+  // the right service + tier here.
   useEffect(() => {
     const onSel = (e) => {
-      const tier = e?.detail;
-      if (!tier) return;
-      setForm((f) => {
-        const intro = `I'm interested in the ${tier} package.`;
-        const alreadyHas = f.message.trim().startsWith("I'm interested in");
-        const newMsg = alreadyHas
-          ? f.message.replace(
-              /^I'm interested in the .*?\.(\s*)/,
-              `${intro}$1`,
-            )
-          : (intro + (f.message ? "\n\n" + f.message : "\n\n"));
-        return { ...f, message: newMsg };
-      });
+      const label = e?.detail;
+      if (!label) return;
+      const map = TIER_LABEL_TO_KEY[label];
+      if (!map) return;
+      setForm((f) => ({ ...f, service: map.service, tier: map.tier }));
     };
     window.addEventListener("zd:select-tier", onSel);
     return () => window.removeEventListener("zd:select-tier", onSel);
   }, []);
+
+  // Clear the tier if the service changes to one that doesn't include it.
+  useEffect(() => {
+    if (!form.service) return;
+    const allowed = TIERS_BY_SERVICE[form.service].map((t) => t.key);
+    if (form.tier && !allowed.includes(form.tier)) {
+      setForm((f) => ({ ...f, tier: "" }));
+    }
+  }, [form.service, form.tier]);
 
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
@@ -47,7 +89,25 @@ export default function Contact() {
     if (!valid || submitting) return;
     setSubmitting(true);
     try {
-      await axios.post(`${API}/contact`, form);
+      // Send human-readable labels for tier/service to backend
+      const tierLabel =
+        form.service && form.tier
+          ? TIERS_BY_SERVICE[form.service].find((t) => t.key === form.tier)
+              ?.label || form.tier
+          : "";
+      const serviceLabel =
+        SERVICES.find((s) => s.key === form.service)?.label || "";
+      const budgetLabel =
+        BUDGETS.find((b) => b.key === form.budget)?.label || "";
+
+      await axios.post(`${API}/contact`, {
+        name: form.name,
+        email: form.email,
+        service: serviceLabel || null,
+        tier: tierLabel || null,
+        budget: budgetLabel || null,
+        message: form.message,
+      });
       setDone(true);
       toast.success("Success", {
         description:
@@ -66,6 +126,8 @@ export default function Contact() {
       setSubmitting(false);
     }
   };
+
+  const currentTiers = form.service ? TIERS_BY_SERVICE[form.service] : [];
 
   return (
     <section
@@ -156,10 +218,108 @@ export default function Contact() {
               </Field>
             </div>
 
+            {/* Service selector */}
+            <div className="mt-6">
+              <div className="eyebrow mb-3">Which service do you need?</div>
+              <div className="grid grid-cols-2 gap-0 border border-[var(--zd-border)]">
+                {SERVICES.map((s, i) => (
+                  <button
+                    type="button"
+                    key={s.key}
+                    data-testid={`contact-service-${s.key}`}
+                    onClick={() => setForm({ ...form, service: s.key })}
+                    className={`px-4 py-4 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors ${
+                      i === 0 ? "border-r border-[var(--zd-border)]" : ""
+                    } ${
+                      form.service === s.key
+                        ? "bg-[var(--zd-ink)] text-white"
+                        : "bg-white text-[var(--zd-ink)] hover:bg-[var(--zd-ink)]/5"
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Tier selector — only after service is picked */}
+            {currentTiers.length > 0 && (
+              <div className="mt-6">
+                <div className="eyebrow mb-3">
+                  {form.service === "website"
+                    ? "Website tier"
+                    : "Brand identity tier"}
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-[var(--zd-border)]">
+                  {currentTiers.map((t, i) => (
+                    <button
+                      type="button"
+                      key={t.key}
+                      data-testid={`contact-tier-${t.key}`}
+                      onClick={() => setForm({ ...form, tier: t.key })}
+                      className={`px-4 py-3 text-left transition-colors ${
+                        i !== currentTiers.length - 1
+                          ? "sm:border-r border-[var(--zd-border)]"
+                          : ""
+                      } ${
+                        i !== 0
+                          ? "border-t sm:border-t-0 border-[var(--zd-border)]"
+                          : ""
+                      } ${
+                        form.tier === t.key
+                          ? "bg-[var(--zd-ink)] text-white"
+                          : "bg-white text-[var(--zd-ink)] hover:bg-[var(--zd-ink)]/5"
+                      }`}
+                    >
+                      <div className="font-mono text-[11px] tracking-[0.18em] uppercase">
+                        {t.label}
+                      </div>
+                      <div
+                        className={`mt-1 font-display text-lg tracking-tight ${
+                          form.tier === t.key
+                            ? "text-white"
+                            : "text-[var(--zd-muted)]"
+                        }`}
+                      >
+                        {t.price}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Budget selector */}
+            <div className="mt-6">
+              <div className="eyebrow mb-3">Budget</div>
+              <div className="grid grid-cols-3 gap-0 border border-[var(--zd-border)]">
+                {BUDGETS.map((b, i) => (
+                  <button
+                    type="button"
+                    key={b.key}
+                    data-testid={`contact-budget-${b.key}`}
+                    onClick={() => setForm({ ...form, budget: b.key })}
+                    className={`px-4 py-3 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors ${
+                      i !== BUDGETS.length - 1
+                        ? "border-r border-[var(--zd-border)]"
+                        : ""
+                    } ${
+                      form.budget === b.key
+                        ? "bg-[var(--zd-ink)] text-white"
+                        : "bg-white text-[var(--zd-ink)] hover:bg-[var(--zd-ink)]/5"
+                    }`}
+                  >
+                    {b.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Message */}
             <div className="mt-6">
               <Field label="Message *">
                 <textarea
-                  className="zd-input min-h-[180px] resize-y"
+                  className="zd-input min-h-[160px] resize-y"
                   data-testid="contact-input-message"
                   value={form.message}
                   onChange={update("message")}
