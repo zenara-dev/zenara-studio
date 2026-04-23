@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { ArrowUpRight, List, X } from "@phosphor-icons/react";
+import Logo from "@/components/Logo";
 
 const LINKS = [
   { href: "#services", label: "Services" },
   { href: "#pricing", label: "Pricing" },
   { href: "#identity", label: "Identity" },
-  { href: "#work", label: "Work" },
   { href: "#process", label: "Process" },
   { href: "#contact", label: "Contact" },
 ];
@@ -29,9 +29,7 @@ export default function Nav() {
     >
       <div className="px-6 md:px-12 lg:px-16 h-16 md:h-20 flex items-center justify-between">
         <a href="#top" data-testid="nav-logo" className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-[var(--zd-ink)] flex items-center justify-center text-white font-display text-base">
-            Z
-          </div>
+          <Logo size={32} className="border border-[var(--zd-border)]" />
           <span className="font-mono text-[11px] tracking-[0.24em] uppercase hidden sm:inline">
             Z—Digital / Solutions
           </span>

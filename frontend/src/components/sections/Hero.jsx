@@ -57,9 +57,9 @@ export default function Hero() {
           <div className="col-span-12 md:col-span-5 md:col-start-8 zd-animate-in zd-delay-3">
             <div className="border-t border-[var(--zd-border)]">
               <div className="grid grid-cols-3 divide-x divide-[var(--zd-border)]">
-                <Stat k="80+" v="Shipped sites" />
-                <Stat k="14 days" v="Avg. delivery" />
-                <Stat k="100%" v="In-house build" />
+                <Stat k="Flat" v="Project pricing" />
+                <Stat k="Fixed" v="Scoped timeline" />
+                <Stat k="In-house" v="Design & build" />
               </div>
             </div>
           </div>

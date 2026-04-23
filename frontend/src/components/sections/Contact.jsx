@@ -6,24 +6,30 @@ import { ArrowUpRight, Check, Warning } from "@phosphor-icons/react";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const TIER_OPTIONS = ["One Page", "Multi Page", "Special APIs"];
-const BUDGETS = ["₹15k – ₹30k", "₹30k – ₹60k", "₹60k – ₹1L", "₹1L+"];
+const INITIAL = { name: "", email: "", message: "" };
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    tier: "",
-    budget: "",
-    message: "",
-  });
+  const [form, setForm] = useState(INITIAL);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
+  // When the user clicks a tier/bundle CTA, prepend a friendly line into the
+  // message so the info is still captured without adding extra form fields.
   useEffect(() => {
     const onSel = (e) => {
-      setForm((f) => ({ ...f, tier: e.detail }));
+      const tier = e?.detail;
+      if (!tier) return;
+      setForm((f) => {
+        const intro = `I'm interested in the ${tier} package.`;
+        const alreadyHas = f.message.trim().startsWith("I'm interested in");
+        const newMsg = alreadyHas
+          ? f.message.replace(
+              /^I'm interested in the .*?\.(\s*)/,
+              `${intro}$1`,
+            )
+          : (intro + (f.message ? "\n\n" + f.message : "\n\n"));
+        return { ...f, message: newMsg };
+      });
     };
     window.addEventListener("zd:select-tier", onSel);
     return () => window.removeEventListener("zd:select-tier", onSel);
@@ -41,25 +47,19 @@ export default function Contact() {
     if (!valid || submitting) return;
     setSubmitting(true);
     try {
-      const { data } = await axios.post(`${API}/contact`, form);
+      await axios.post(`${API}/contact`, form);
       setDone(true);
-      toast.success("Inquiry received", {
-        description: "We'll get back to you within one business day.",
+      toast.success("Success", {
+        description:
+          "Thanks! The Z-Digital team will get back to you within 24 hours.",
         icon: <Check weight="bold" />,
+        duration: 6000,
       });
-      setForm({
-        name: "",
-        email: "",
-        company: "",
-        tier: "",
-        budget: "",
-        message: "",
-      });
-      // eslint-disable-next-line no-console
-      console.log("Inquiry saved:", data.id);
+      setForm(INITIAL);
     } catch (err) {
       toast.error("Could not send inquiry", {
-        description: "Please try again or email us at hello@zdigitalsolutions.co.",
+        description:
+          "Please try again or email us at zdigitalassets93@gmail.com.",
         icon: <Warning weight="bold" />,
       });
     } finally {
@@ -76,7 +76,7 @@ export default function Contact() {
       <div className="px-6 md:px-12 lg:px-16">
         <div className="grid grid-cols-12 gap-6 mb-12 md:mb-16">
           <div className="col-span-12 md:col-span-3">
-            <div className="eyebrow">06 / Contact</div>
+            <div className="eyebrow">05 / Contact</div>
           </div>
           <h2 className="col-span-12 md:col-span-9 font-display text-3xl md:text-5xl lg:text-6xl tracking-tighter">
             Tell us what you're <br className="hidden md:block" />
@@ -90,11 +90,11 @@ export default function Contact() {
             <div className="border-t border-[var(--zd-ink)] pt-6">
               <div className="eyebrow">Direct</div>
               <a
-                href="mailto:hello@zdigitalsolutions.co"
+                href="mailto:zdigitalassets93@gmail.com"
                 data-testid="contact-email"
-                className="block mt-3 font-display text-xl md:text-2xl tracking-tight zd-link"
+                className="block mt-3 font-display text-xl md:text-2xl tracking-tight zd-link break-all"
               >
-                hello@zdigitalsolutions.co
+                zdigitalassets93@gmail.com
               </a>
             </div>
             <div className="mt-10 border-t border-[var(--zd-border)] pt-6">
@@ -113,7 +113,7 @@ export default function Contact() {
                 </li>
                 <li className="flex gap-3">
                   <span className="font-mono text-[11px] text-[var(--zd-muted)]">02</span>
-                  <span>We reply within 1 business day with a call link.</span>
+                  <span>We reply within 24 hours with a call link.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="font-mono text-[11px] text-[var(--zd-muted)]">03</span>
@@ -139,6 +139,7 @@ export default function Contact() {
                   onChange={update("name")}
                   placeholder="Your full name"
                   required
+                  autoComplete="name"
                 />
               </Field>
               <Field label="Email *">
@@ -150,61 +151,15 @@ export default function Contact() {
                   onChange={update("email")}
                   placeholder="you@company.com"
                   required
+                  autoComplete="email"
                 />
-              </Field>
-              <Field label="Company">
-                <input
-                  className="zd-input"
-                  data-testid="contact-input-company"
-                  value={form.company}
-                  onChange={update("company")}
-                  placeholder="Company / brand (optional)"
-                />
-              </Field>
-              <Field label="Budget">
-                <select
-                  className="zd-input"
-                  data-testid="contact-select-budget"
-                  value={form.budget}
-                  onChange={update("budget")}
-                >
-                  <option value="">Select a budget (optional)</option>
-                  {BUDGETS.map((b) => (
-                    <option key={b} value={b}>
-                      {b}
-                    </option>
-                  ))}
-                </select>
               </Field>
             </div>
 
             <div className="mt-6">
-              <div className="eyebrow mb-3">Tier of interest</div>
-              <div className="grid grid-cols-3 gap-0 border border-[var(--zd-border)]">
-                {TIER_OPTIONS.map((t, i) => (
-                  <button
-                    type="button"
-                    key={t}
-                    data-testid={`contact-tier-${t.toLowerCase().replace(" ", "-")}`}
-                    onClick={() => setForm({ ...form, tier: t })}
-                    className={`px-4 py-3 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors ${
-                      i !== TIER_OPTIONS.length - 1 ? "border-r border-[var(--zd-border)]" : ""
-                    } ${
-                      form.tier === t
-                        ? "bg-[var(--zd-ink)] text-white"
-                        : "bg-white text-[var(--zd-ink)] hover:bg-[var(--zd-ink)]/5"
-                    }`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <Field label="Project brief *">
+              <Field label="Message *">
                 <textarea
-                  className="zd-input min-h-[160px] resize-y"
+                  className="zd-input min-h-[180px] resize-y"
                   data-testid="contact-input-message"
                   value={form.message}
                   onChange={update("message")}
@@ -216,8 +171,8 @@ export default function Contact() {
 
             <div className="mt-8 flex items-center justify-between flex-wrap gap-4">
               <p className="text-xs text-[var(--zd-muted)] max-w-md">
-                By sending, you agree we'll store this message to respond. We don't sell
-                or share your data.
+                By sending, you agree we'll store this message to respond. We don't
+                sell or share your data.
               </p>
               <button
                 type="submit"
@@ -225,7 +180,7 @@ export default function Contact() {
                 data-testid="contact-submit-btn"
                 className="zd-btn"
               >
-                {submitting ? "Sending…" : done ? "Sent" : "Send inquiry"}
+                {submitting ? "Sending…" : done ? "Sent" : "Send message"}
                 <ArrowUpRight size={14} weight="bold" />
               </button>
             </div>
