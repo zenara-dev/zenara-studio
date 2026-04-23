@@ -96,7 +96,9 @@ export default function IdentityAssets() {
             <article
               key={b.key}
               data-testid={`identity-card-${b.key}`}
-              className={`zd-pricing-card relative p-8 md:p-10 bg-white flex flex-col ${
+              className={`zd-pricing-card relative p-8 md:p-10 flex flex-col ${
+                b.featured ? "" : "bg-white"
+              } ${
                 idx !== BUNDLES.length - 1 ? "md:border-r" : ""
               } ${idx !== 0 ? "border-t md:border-t-0" : ""} border-[var(--zd-ink)] ${
                 b.featured ? "zd-pricing-card--featured" : ""

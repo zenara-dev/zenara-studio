@@ -88,7 +88,9 @@ export default function Pricing() {
             <article
               key={t.key}
               data-testid={`pricing-card-${t.key}`}
-              className={`zd-pricing-card relative p-8 md:p-10 bg-white ${
+              className={`zd-pricing-card relative p-8 md:p-10 ${
+                t.featured ? "" : "bg-white"
+              } ${
                 idx !== TIERS.length - 1 ? "md:border-r" : ""
               } ${idx !== 0 ? "border-t md:border-t-0" : ""} border-[var(--zd-ink)] ${
                 t.featured ? "zd-pricing-card--featured" : ""

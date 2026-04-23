@@ -194,7 +194,7 @@ body {
     position: relative;
 }
 .zd-pricing-card--featured {
-    background: var(--zd-ink);
+    background-color: var(--zd-ink) !important;
     color: #fff;
 }
 .zd-pricing-card--featured:hover {
