@@ -48,8 +48,8 @@ export default function Hero() {
               <a href="#pricing" data-testid="hero-cta-pricing" className="zd-btn">
                 See Pricing <ArrowUpRight size={14} weight="bold" />
               </a>
-              <a href="#work" data-testid="hero-cta-work" className="zd-btn zd-btn--ghost">
-                View Work
+              <a href="#contact" data-testid="hero-cta-contact" className="zd-btn zd-btn--ghost">
+                Start a project
               </a>
             </div>
           </div>
@@ -68,7 +68,7 @@ export default function Hero() {
         {/* Scroll indicator */}
         <div className="mt-16 md:mt-20 flex items-center gap-3 font-mono text-[11px] tracking-[0.24em] uppercase text-[var(--zd-muted)]">
           <ArrowDown size={14} weight="bold" />
-          <span>Scroll — three tiers below</span>
+          <span>Scroll — see our pricing</span>
         </div>
       </div>
     </section>

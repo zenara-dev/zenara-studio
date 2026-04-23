@@ -27,11 +27,8 @@ export default function Footer() {
         {/* Columns */}
         <div className="grid grid-cols-2 md:grid-cols-12 gap-8 mt-14">
           <div className="col-span-2 md:col-span-4">
-            <div className="flex items-center gap-3">
-              <Logo size={36} className="border border-white/20" />
-              <span className="font-mono text-[11px] tracking-[0.24em] uppercase">
-                Z—Digital / Solutions
-              </span>
+            <div className="bg-white inline-block p-3">
+              <Logo variant="full" height={72} />
             </div>
             <p className="mt-6 text-sm text-white/70 max-w-sm leading-relaxed">
               A boutique studio building sharp, editorial websites, product surfaces

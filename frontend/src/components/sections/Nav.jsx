@@ -29,10 +29,8 @@ export default function Nav() {
     >
       <div className="px-6 md:px-12 lg:px-16 h-16 md:h-20 flex items-center justify-between">
         <a href="#top" data-testid="nav-logo" className="flex items-center gap-3">
-          <Logo size={32} className="border border-[var(--zd-border)]" />
-          <span className="font-mono text-[11px] tracking-[0.24em] uppercase hidden sm:inline">
-            Z—Digital / Solutions
-          </span>
+          <Logo variant="wordmark" height={28} className="hidden sm:block" />
+          <Logo variant="icon" height={28} className="sm:hidden" />
         </a>
 
         <nav className="hidden md:flex items-center gap-8">

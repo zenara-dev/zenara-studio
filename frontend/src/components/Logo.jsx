@@ -1,34 +1,30 @@
 /**
  * Z-Digital Solutions logo.
- * - variant="mark"  → square icon (star + Z letter only — tightly cropped)
- * - variant="full"  → wordmark (logo + "Z-Digital Solutions" + tagline)
+ * - variant="icon"      → square star-shield mark only
+ * - variant="wordmark"  → horizontal wordmark (star + "Z-Digital Solutions")
+ * - variant="full"      → wordmark + "Solving digital problems" tagline
+ *
+ * Sizing: pass `height` in px; width scales automatically.
  */
-export default function Logo({ variant = "mark", className = "", size = 32, ...rest }) {
-  if (variant === "full") {
-    return (
-      <img
-        src="/zd-logo-wordmark.png"
-        alt="Z-Digital Solutions"
-        className={className}
-        style={{ height: size, width: "auto" }}
-        {...rest}
-      />
-    );
-  }
+export default function Logo({
+  variant = "icon",
+  height = 32,
+  className = "",
+  ...rest
+}) {
+  const src =
+    variant === "full"
+      ? "/zd-wordmark-full.png"
+      : variant === "wordmark"
+      ? "/zd-wordmark.png"
+      : "/zd-icon.png";
+
   return (
-    <span
-      aria-label="Z-Digital Solutions"
-      role="img"
-      className={`inline-block bg-white overflow-hidden ${className}`}
-      style={{
-        width: size,
-        height: size,
-        backgroundImage: "url('/zd-logo-cropped.png')",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "160% auto",
-        backgroundPosition: "50% 40%",
-        borderRadius: 0,
-      }}
+    <img
+      src={src}
+      alt="Z-Digital Solutions"
+      className={`block ${className}`}
+      style={{ height, width: "auto" }}
       {...rest}
     />
   );
