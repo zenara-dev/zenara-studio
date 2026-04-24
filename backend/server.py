@@ -35,7 +35,7 @@ NOTIFY_EMAIL = os.environ.get("NOTIFY_EMAIL", "").strip()
 if RESEND_API_KEY:
     resend.api_key = RESEND_API_KEY
 
-app = FastAPI(title="Z-Digital Solutions API")
+app = FastAPI(title="Zenara Studios API")
 api_router = APIRouter(prefix="/api")
 
 # ---------- Models ----------
@@ -79,7 +79,7 @@ def _inquiry_email_html(inq: Inquiry) -> str:
     return f"""
     <table width="100%" cellpadding="0" cellspacing="0" style="font-family: Helvetica, Arial, sans-serif; color: #050505;">
       <tr><td style="padding:24px; border-bottom:1px solid #E5E5E5;">
-        <div style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#737373;">Z-Digital Solutions</div>
+        <div style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#737373;">Zenara Studios</div>
         <h1 style="margin:8px 0 0 0; font-size:24px;">New Project Inquiry</h1>
       </td></tr>
       <tr><td style="padding:24px;">
@@ -118,7 +118,7 @@ async def _send_inquiry_email(inq: Inquiry) -> bool:
 # ---------- Routes ----------
 @api_router.get("/")
 async def root():
-    return {"message": "Z-Digital Solutions API", "status": "ok"}
+    return {"message": "Zenara Studios API", "status": "ok"}
 
 
 @api_router.get("/health")

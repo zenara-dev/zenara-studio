@@ -58,7 +58,7 @@ const BUNDLES = [
 export default function IdentityAssets() {
   const go = (name) => (e) => {
     e.preventDefault();
-    window.dispatchEvent(new CustomEvent("zd:select-tier", { detail: name }));
+    window.dispatchEvent(new CustomEvent("zn:select-tier", { detail: name }));
     const el = document.getElementById("contact");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
@@ -67,55 +67,56 @@ export default function IdentityAssets() {
     <section
       id="identity"
       data-testid="identity-section"
-      className="border-b border-[var(--zd-border)] py-20 md:py-28 bg-white"
+      className="border-b border-[var(--zn-border)] py-20 md:py-28 bg-white"
     >
       <div className="px-6 md:px-12 lg:px-16">
         {/* Heading */}
         <div className="grid grid-cols-12 gap-6 mb-12 md:mb-16">
           <div className="col-span-12 md:col-span-3">
-            <div className="eyebrow">02.5 / Identity</div>
+            <div className="eyebrow">III · Identity</div>
           </div>
           <div className="col-span-12 md:col-span-9">
             <h2
               data-testid="identity-heading"
-              className="font-display text-3xl md:text-5xl lg:text-6xl tracking-tighter"
+              className="zn-display text-3xl md:text-5xl lg:text-6xl"
             >
-              Creative & Identity{" "}
-              <span className="text-[var(--zd-muted)]">Assets.</span>
+              Creative{" "}
+              <span className="zn-display-italic text-[var(--zn-muted)]">&</span>{" "}
+              identity assets.
             </h2>
-            <p className="mt-4 max-w-2xl text-base md:text-lg text-[var(--zd-muted)]">
-              Standalone graphic bundles — logos, flyers, banners and animated signatures.
-              Pair them with any website tier above, or book on their own.
+            <p className="mt-5 max-w-2xl text-base md:text-lg text-[var(--zn-muted)]">
+              Standalone graphic bundles — marks, flyers, banners and animated
+              signatures. Commissioned alongside an engagement, or on their own.
             </p>
           </div>
         </div>
 
         {/* Bundle grid — same border-collapse aesthetic as Pricing */}
-        <div className="grid grid-cols-1 md:grid-cols-3 border border-[var(--zd-ink)]">
+        <div className="grid grid-cols-1 md:grid-cols-3 border border-[var(--zn-ink)]">
           {BUNDLES.map((b, idx) => (
             <article
               key={b.key}
               data-testid={`identity-card-${b.key}`}
-              className={`zd-pricing-card relative p-8 md:p-10 flex flex-col ${
+              className={`zn-pricing-card relative p-8 md:p-10 flex flex-col ${
                 b.featured ? "" : "bg-white"
               } ${
                 idx !== BUNDLES.length - 1 ? "md:border-r" : ""
-              } ${idx !== 0 ? "border-t md:border-t-0" : ""} border-[var(--zd-ink)] ${
-                b.featured ? "zd-pricing-card--featured" : ""
+              } ${idx !== 0 ? "border-t md:border-t-0" : ""} border-[var(--zn-ink)] ${
+                b.featured ? "zn-pricing-card--featured" : ""
               }`}
             >
               {/* Top row */}
               <div className="flex items-start justify-between gap-3">
                 <span
                   className={`font-mono text-[11px] tracking-[0.22em] uppercase ${
-                    b.featured ? "text-[var(--zd-accent)]" : "text-[var(--zd-muted)]"
+                    b.featured ? "text-[var(--zn-accent)]" : "text-[var(--zn-muted)]"
                   }`}
                 >
                   {b.badge}
                 </span>
                 <span
                   className={`font-mono text-[11px] tracking-[0.2em] uppercase whitespace-nowrap ${
-                    b.featured ? "text-white/70" : "text-[var(--zd-muted)]"
+                    b.featured ? "text-white/70" : "text-[var(--zn-muted)]"
                   }`}
                 >
                   {b.delivery}
@@ -123,7 +124,7 @@ export default function IdentityAssets() {
               </div>
 
               {/* Name */}
-              <h3 className="mt-8 font-display text-3xl md:text-4xl tracking-tighter uppercase">
+              <h3 className="mt-8 zn-display text-3xl md:text-4xl">
                 {b.name}
               </h3>
 
@@ -131,13 +132,13 @@ export default function IdentityAssets() {
               <div className="mt-6 flex items-baseline gap-3">
                 <span
                   data-testid={`identity-price-${b.key}`}
-                  className="font-display text-4xl md:text-5xl tracking-tighter"
+                  className="zn-display text-4xl md:text-5xl"
                 >
                   {b.price}
                 </span>
                 <span
                   className={`font-mono text-[11px] tracking-[0.2em] uppercase ${
-                    b.featured ? "text-white/70" : "text-[var(--zd-muted)]"
+                    b.featured ? "text-white/70" : "text-[var(--zn-muted)]"
                   }`}
                 >
                   {b.priceNote}
@@ -147,7 +148,7 @@ export default function IdentityAssets() {
               {/* Lead */}
               <p
                 className={`mt-5 text-sm md:text-base leading-relaxed ${
-                  b.featured ? "text-white/80" : "text-[var(--zd-ink)]"
+                  b.featured ? "text-white/80" : "text-[var(--zn-ink)]"
                 }`}
               >
                 {b.lead}
@@ -156,7 +157,7 @@ export default function IdentityAssets() {
               {/* Divider */}
               <div
                 className={`my-8 h-px ${
-                  b.featured ? "bg-white/20" : "bg-[var(--zd-border)]"
+                  b.featured ? "bg-white/20" : "bg-[var(--zn-border)]"
                 }`}
               />
 
@@ -172,8 +173,8 @@ export default function IdentityAssets() {
                       weight="bold"
                       className={
                         b.featured
-                          ? "text-[var(--zd-accent)] mt-1"
-                          : "text-[var(--zd-ink)] mt-1"
+                          ? "text-[var(--zn-accent)] mt-1"
+                          : "text-[var(--zn-ink)] mt-1"
                       }
                     />
                     <span className={b.featured ? "text-white/90" : ""}>{f}</span>
@@ -188,8 +189,8 @@ export default function IdentityAssets() {
                 data-testid={`identity-cta-${b.key}`}
                 className={`mt-10 inline-flex items-center justify-between w-full px-5 py-4 border font-mono text-[12px] tracking-[0.18em] uppercase transition-colors ${
                   b.featured
-                    ? "border-white text-white hover:bg-[var(--zd-accent)] hover:border-[var(--zd-accent)]"
-                    : "border-[var(--zd-ink)] text-[var(--zd-ink)] hover:bg-[var(--zd-ink)] hover:text-white"
+                    ? "border-white text-white hover:bg-[var(--zn-accent)] hover:border-[var(--zn-accent)]"
+                    : "border-[var(--zn-ink)] text-[var(--zn-ink)] hover:bg-[var(--zn-ink)] hover:text-white"
                 }`}
               >
                 <span>{b.cta}</span>

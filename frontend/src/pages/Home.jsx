@@ -10,7 +10,7 @@ import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main data-testid="home-page" className="relative bg-[var(--zd-bg)] text-[var(--zd-ink)] overflow-x-hidden">
+    <main data-testid="home-page" className="relative bg-[var(--zn-bg)] text-[var(--zn-ink)] overflow-x-hidden">
       <Nav />
       <Hero />
       <Marquee />

@@ -64,8 +64,8 @@ export default function Contact() {
       if (!map) return;
       setForm((f) => ({ ...f, service: map.service, tier: map.tier }));
     };
-    window.addEventListener("zd:select-tier", onSel);
-    return () => window.removeEventListener("zd:select-tier", onSel);
+    window.addEventListener("zn:select-tier", onSel);
+    return () => window.removeEventListener("zn:select-tier", onSel);
   }, []);
 
   // Clear the tier if the service changes to one that doesn't include it.
@@ -111,7 +111,7 @@ export default function Contact() {
       setDone(true);
       toast.success("Success", {
         description:
-          "Thanks! The Z-Digital team will get back to you within 24 hours.",
+          "Thanks! The Zenara team will get back to you within 24 hours.",
         icon: <Check weight="bold" />,
         duration: 6000,
       });
@@ -133,52 +133,54 @@ export default function Contact() {
     <section
       id="contact"
       data-testid="contact-section"
-      className="border-b border-[var(--zd-border)] py-20 md:py-28 bg-white"
+      className="border-b border-[var(--zn-border)] py-20 md:py-28 bg-white"
     >
       <div className="px-6 md:px-12 lg:px-16">
         <div className="grid grid-cols-12 gap-6 mb-12 md:mb-16">
           <div className="col-span-12 md:col-span-3">
-            <div className="eyebrow">05 / Contact</div>
+            <div className="eyebrow">V · Enquire</div>
           </div>
-          <h2 className="col-span-12 md:col-span-9 font-display text-3xl md:text-5xl lg:text-6xl tracking-tighter">
-            Tell us what you're <br className="hidden md:block" />
-            <span className="text-[var(--zd-muted)]">trying to build.</span>
+          <h2 className="col-span-12 md:col-span-9 zn-display text-3xl md:text-5xl lg:text-6xl">
+            Tell us what you're{" "}
+            <span className="zn-display-italic text-[var(--zn-muted)]">
+              trying to build.
+            </span>
           </h2>
         </div>
 
         <div className="grid grid-cols-12 gap-8 md:gap-12">
           {/* Left info */}
           <aside className="col-span-12 md:col-span-4 lg:col-span-4">
-            <div className="border-t border-[var(--zd-ink)] pt-6">
+            <div className="border-t border-[var(--zn-ink)] pt-6">
               <div className="eyebrow">Direct</div>
               <a
                 href="mailto:zdigitalassets93@gmail.com"
                 data-testid="contact-email"
-                className="block mt-3 font-display text-xl md:text-2xl tracking-tight zd-link break-all"
+                className="block mt-3 font-display text-xl md:text-2xl tracking-tight zn-link break-all"
               >
                 zdigitalassets93@gmail.com
               </a>
             </div>
-            <div className="mt-10 border-t border-[var(--zd-border)] pt-6">
+            <div className="mt-10 border-t border-[var(--zn-border)] pt-6">
               <div className="eyebrow">Studio</div>
               <p className="mt-3 text-base leading-relaxed">
                 Indiranagar, Bangalore<br />
                 Mon — Fri / 10:00 — 19:00 IST
               </p>
             </div>
-            <div className="mt-10 border-t border-[var(--zd-border)] pt-6">
+            <div className="mt-10 border-t border-[var(--zn-border)] pt-6">
               <div className="eyebrow">What happens next</div>
               <ol className="mt-4 space-y-3 text-sm">
                 <li className="flex gap-3">
-                  <span className="font-mono text-[11px] text-[var(--zd-muted)]">01</span>
+                  <span className="font-mono text-[11px] text-[var(--zn-muted)]">01</span>
                   <span>We read every message personally.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="font-mono text-[11px] text-[var(--zd-muted)]">02</span>
+                  <span className="font-mono text-[11px] text-[var(--zn-muted)]">02</span>
                   <span>We reply within 24 hours with a call link.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="font-mono text-[11px] text-[var(--zd-muted)]">03</span>
+                  <span className="font-mono text-[11px] text-[var(--zn-muted)]">03</span>
                   <span>Scoping call → flat quote → kick-off.</span>
                 </li>
               </ol>
@@ -189,13 +191,13 @@ export default function Contact() {
           <form
             onSubmit={onSubmit}
             data-testid="contact-form"
-            className="col-span-12 md:col-span-8 lg:col-span-8 border border-[var(--zd-ink)] p-6 md:p-10 bg-[var(--zd-bg)]"
+            className="col-span-12 md:col-span-8 lg:col-span-8 border border-[var(--zn-ink)] p-6 md:p-10 bg-[var(--zn-bg)]"
             noValidate
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Field label="Name *">
                 <input
-                  className="zd-input"
+                  className="zn-input"
                   data-testid="contact-input-name"
                   value={form.name}
                   onChange={update("name")}
@@ -207,7 +209,7 @@ export default function Contact() {
               <Field label="Email *">
                 <input
                   type="email"
-                  className="zd-input"
+                  className="zn-input"
                   data-testid="contact-input-email"
                   value={form.email}
                   onChange={update("email")}
@@ -221,7 +223,7 @@ export default function Contact() {
             {/* Service selector */}
             <div className="mt-6">
               <div className="eyebrow mb-3">Which service do you need?</div>
-              <div className="grid grid-cols-2 gap-0 border border-[var(--zd-border)]">
+              <div className="grid grid-cols-2 gap-0 border border-[var(--zn-border)]">
                 {SERVICES.map((s, i) => (
                   <button
                     type="button"
@@ -229,11 +231,11 @@ export default function Contact() {
                     data-testid={`contact-service-${s.key}`}
                     onClick={() => setForm({ ...form, service: s.key })}
                     className={`px-4 py-4 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors ${
-                      i === 0 ? "border-r border-[var(--zd-border)]" : ""
+                      i === 0 ? "border-r border-[var(--zn-border)]" : ""
                     } ${
                       form.service === s.key
-                        ? "bg-[var(--zd-ink)] text-white"
-                        : "bg-white text-[var(--zd-ink)] hover:bg-[var(--zd-ink)]/5"
+                        ? "bg-[var(--zn-ink)] text-white"
+                        : "bg-white text-[var(--zn-ink)] hover:bg-[var(--zn-ink)]/5"
                     }`}
                   >
                     {s.label}
@@ -250,7 +252,7 @@ export default function Contact() {
                     ? "Website tier"
                     : "Brand identity tier"}
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-[var(--zd-border)]">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-[var(--zn-border)]">
                   {currentTiers.map((t, i) => (
                     <button
                       type="button"
@@ -259,16 +261,16 @@ export default function Contact() {
                       onClick={() => setForm({ ...form, tier: t.key })}
                       className={`px-4 py-3 text-left transition-colors ${
                         i !== currentTiers.length - 1
-                          ? "sm:border-r border-[var(--zd-border)]"
+                          ? "sm:border-r border-[var(--zn-border)]"
                           : ""
                       } ${
                         i !== 0
-                          ? "border-t sm:border-t-0 border-[var(--zd-border)]"
+                          ? "border-t sm:border-t-0 border-[var(--zn-border)]"
                           : ""
                       } ${
                         form.tier === t.key
-                          ? "bg-[var(--zd-ink)] text-white"
-                          : "bg-white text-[var(--zd-ink)] hover:bg-[var(--zd-ink)]/5"
+                          ? "bg-[var(--zn-ink)] text-white"
+                          : "bg-white text-[var(--zn-ink)] hover:bg-[var(--zn-ink)]/5"
                       }`}
                     >
                       <div className="font-mono text-[11px] tracking-[0.18em] uppercase">
@@ -278,7 +280,7 @@ export default function Contact() {
                         className={`mt-1 font-display text-lg tracking-tight ${
                           form.tier === t.key
                             ? "text-white"
-                            : "text-[var(--zd-muted)]"
+                            : "text-[var(--zn-muted)]"
                         }`}
                       >
                         {t.price}
@@ -292,7 +294,7 @@ export default function Contact() {
             {/* Budget selector */}
             <div className="mt-6">
               <div className="eyebrow mb-3">Budget</div>
-              <div className="grid grid-cols-3 gap-0 border border-[var(--zd-border)]">
+              <div className="grid grid-cols-3 gap-0 border border-[var(--zn-border)]">
                 {BUDGETS.map((b, i) => (
                   <button
                     type="button"
@@ -301,12 +303,12 @@ export default function Contact() {
                     onClick={() => setForm({ ...form, budget: b.key })}
                     className={`px-4 py-3 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors ${
                       i !== BUDGETS.length - 1
-                        ? "border-r border-[var(--zd-border)]"
+                        ? "border-r border-[var(--zn-border)]"
                         : ""
                     } ${
                       form.budget === b.key
-                        ? "bg-[var(--zd-ink)] text-white"
-                        : "bg-white text-[var(--zd-ink)] hover:bg-[var(--zd-ink)]/5"
+                        ? "bg-[var(--zn-ink)] text-white"
+                        : "bg-white text-[var(--zn-ink)] hover:bg-[var(--zn-ink)]/5"
                     }`}
                   >
                     {b.label}
@@ -319,7 +321,7 @@ export default function Contact() {
             <div className="mt-6">
               <Field label="Message *">
                 <textarea
-                  className="zd-input min-h-[160px] resize-y"
+                  className="zn-input min-h-[160px] resize-y"
                   data-testid="contact-input-message"
                   value={form.message}
                   onChange={update("message")}
@@ -330,7 +332,7 @@ export default function Contact() {
             </div>
 
             <div className="mt-8 flex items-center justify-between flex-wrap gap-4">
-              <p className="text-xs text-[var(--zd-muted)] max-w-md">
+              <p className="text-xs text-[var(--zn-muted)] max-w-md">
                 By sending, you agree we'll store this message to respond. We don't
                 sell or share your data.
               </p>
@@ -338,7 +340,7 @@ export default function Contact() {
                 type="submit"
                 disabled={!valid || submitting}
                 data-testid="contact-submit-btn"
-                className="zd-btn"
+                className="zn-btn"
               >
                 {submitting ? "Sending…" : done ? "Sent" : "Send message"}
                 <ArrowUpRight size={14} weight="bold" />

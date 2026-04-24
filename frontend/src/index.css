@@ -1,26 +1,28 @@
 @import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=general-sans@400,500,600,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-    --zd-bg: #f9f9f9;
-    --zd-surface: #ffffff;
-    --zd-ink: #050505;
-    --zd-border: #e5e5e5;
-    --zd-muted: #737373;
-    --zd-accent: #ff3300;
-    --zd-accent-hover: #cc2900;
+    --zn-bg: #fafafa;           /* Soft White */
+    --zn-surface: #ffffff;
+    --zn-ink: #0a0a0a;          /* Deep Black */
+    --zn-border: #eaeaea;
+    --zn-muted: #8a8a8a;
+    --zn-silver: #c0c0c0;       /* Subtle silver accent */
+    --zn-silver-soft: #dcdcdc;
+    --zn-accent: #0a0a0a;       /* Minimalist: accent = ink */
+    --zn-accent-hover: #000000;
 }
 
 html,
 body {
     margin: 0;
     padding: 0;
-    background: var(--zd-bg);
-    color: var(--zd-ink);
+    background: var(--zn-bg);
+    color: var(--zn-ink);
     font-family: "IBM Plex Sans", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -32,15 +34,19 @@ body {
 }
 
 ::selection {
-    background: var(--zd-accent);
+    background: var(--zn-ink);
     color: #fff;
 }
 
 /* Typography utilities */
+.font-serif {
+    font-family: "Playfair Display", Georgia, serif;
+    font-feature-settings: "liga", "kern";
+}
 .font-display {
-    font-family: "Cabinet Grotesk", "IBM Plex Sans", sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
 }
 .font-mono {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -53,24 +59,32 @@ body {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--zd-muted);
+    color: var(--zn-muted);
 }
 
-/* Sharp shadow (Swiss style) */
-.shadow-sharp {
-    box-shadow: 6px 6px 0 0 var(--zd-ink);
+/* Hairline silver rule */
+.hair {
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--zn-silver),
+        transparent
+    );
 }
-.shadow-sharp-sm {
-    box-shadow: 4px 4px 0 0 var(--zd-ink);
+
+/* Soft subtle shadow (replaces sharp Swiss shadow) */
+.shadow-soft {
+    box-shadow: 0 1px 0 0 var(--zn-border);
 }
-.shadow-sharp-accent {
-    box-shadow: 6px 6px 0 0 var(--zd-accent);
+.shadow-soft-lg {
+    box-shadow: 0 24px 60px -28px rgba(10, 10, 10, 0.18);
 }
 
 /* Marquee */
-@keyframes zd-marquee {
+@keyframes zn-marquee {
     0% {
         transform: translateX(0);
     }
@@ -78,170 +92,156 @@ body {
         transform: translateX(-50%);
     }
 }
-.zd-marquee {
-    animation: zd-marquee 40s linear infinite;
+.zn-marquee {
+    animation: zn-marquee 60s linear infinite;
 }
 
 /* Fade-in */
-@keyframes zd-fade-up {
+@keyframes zn-fade-up {
     from {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(14px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
-.zd-animate-in {
-    animation: zd-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+.zn-animate-in {
+    animation: zn-fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.zd-delay-1 {
+.zn-delay-1 {
     animation-delay: 0.08s;
 }
-.zd-delay-2 {
-    animation-delay: 0.18s;
+.zn-delay-2 {
+    animation-delay: 0.2s;
 }
-.zd-delay-3 {
-    animation-delay: 0.28s;
+.zn-delay-3 {
+    animation-delay: 0.32s;
 }
-.zd-delay-4 {
-    animation-delay: 0.4s;
-}
-
-/* Grain overlay for hero */
-.zd-grain::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.06;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+.zn-delay-4 {
+    animation-delay: 0.46s;
 }
 
-/* Inputs, buttons — square */
-.zd-input {
+/* Inputs, buttons — minimalist square */
+.zn-input {
     width: 100%;
-    background: #fff;
-    border: 1px solid var(--zd-border);
+    background: transparent;
+    border: 1px solid var(--zn-border);
     padding: 14px 16px;
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 15px;
-    color: var(--zd-ink);
+    color: var(--zn-ink);
     outline: none;
-    transition: border-color 0.15s ease;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
     border-radius: 0;
 }
-.zd-input:focus {
-    border-color: var(--zd-ink);
+.zn-input:focus {
+    border-color: var(--zn-ink);
+    background: #fff;
 }
-.zd-input::placeholder {
-    color: #a3a3a3;
+.zn-input::placeholder {
+    color: var(--zn-silver);
 }
 
-.zd-btn {
+.zn-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 16px 24px;
-    background: var(--zd-ink);
+    gap: 12px;
+    padding: 16px 28px;
+    background: var(--zn-ink);
     color: #fff;
     font-family: "IBM Plex Sans", sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    border: 1px solid var(--zd-ink);
+    border: 1px solid var(--zn-ink);
     border-radius: 0;
     cursor: pointer;
     transition:
-        background 0.15s ease,
-        color 0.15s ease,
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
 }
-.zd-btn:hover {
-    background: var(--zd-accent);
-    border-color: var(--zd-accent);
-    color: #fff;
-}
-.zd-btn--ghost {
+.zn-btn:hover {
     background: transparent;
-    color: var(--zd-ink);
+    color: var(--zn-ink);
 }
-.zd-btn--ghost:hover {
-    background: var(--zd-ink);
+.zn-btn--ghost {
+    background: transparent;
+    color: var(--zn-ink);
+    border-color: var(--zn-silver);
+}
+.zn-btn--ghost:hover {
+    background: var(--zn-ink);
     color: #fff;
+    border-color: var(--zn-ink);
 }
-.zd-btn:disabled {
-    opacity: 0.5;
+.zn-btn:disabled {
+    opacity: 0.35;
     cursor: not-allowed;
 }
 
-/* Pricing card hover */
-.zd-pricing-card {
+/* Pricing card hover — elevated, quiet */
+.zn-pricing-card {
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s ease,
+        background 0.35s ease;
 }
-.zd-pricing-card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0 0 var(--zd-ink);
+.zn-pricing-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 32px 64px -32px rgba(10, 10, 10, 0.22);
     z-index: 10;
     position: relative;
 }
-.zd-pricing-card--featured {
-    background-color: var(--zd-ink) !important;
+.zn-pricing-card--featured {
+    background-color: var(--zn-ink) !important;
     color: #fff;
 }
-.zd-pricing-card--featured:hover {
-    box-shadow: 8px 8px 0 0 var(--zd-accent);
+.zn-pricing-card--featured:hover {
+    box-shadow: 0 32px 64px -28px rgba(10, 10, 10, 0.55);
 }
 
-/* Portfolio greyscale → color */
-.zd-portfolio-img {
-    filter: grayscale(100%);
-    transition:
-        filter 0.5s ease,
-        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.zd-portfolio-item:hover .zd-portfolio-img {
-    filter: grayscale(0%);
-    transform: scale(1.03);
-}
-
-/* Link underline */
-.zd-link {
+/* Link underline — silver */
+.zn-link {
     position: relative;
     display: inline-block;
 }
-.zd-link::after {
+.zn-link::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -3px;
     width: 100%;
     height: 1px;
     background: currentColor;
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.zd-link:hover::after {
+.zn-link:hover::after {
     transform: scaleX(1);
     transform-origin: left;
 }
 
-/* Huge outline text */
-.zd-outline-text {
-    -webkit-text-stroke: 1.5px currentColor;
-    color: transparent;
+/* Huge serif display utility */
+.zn-display {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.96;
+}
+.zn-display-italic {
+    font-style: italic;
+    font-weight: 400;
 }
 
-/* Hide any third-party platform preview/watermark badges in bottom-right */
+/* Hide any third-party platform preview/watermark badges */
 #emergent-badge,
 [id*="emergent"],
 [class*="emergent-badge"],
@@ -258,25 +258,25 @@ a[href*="emergent.dev"] {
 /* Shadcn tokens */
 @layer base {
     :root {
-        --background: 0 0% 97.6%;
-        --foreground: 0 0% 2%;
+        --background: 0 0% 98%;
+        --foreground: 0 0% 4%;
         --card: 0 0% 100%;
-        --card-foreground: 0 0% 2%;
+        --card-foreground: 0 0% 4%;
         --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 2%;
-        --primary: 0 0% 2%;
+        --popover-foreground: 0 0% 4%;
+        --primary: 0 0% 4%;
         --primary-foreground: 0 0% 98%;
         --secondary: 0 0% 96%;
         --secondary-foreground: 0 0% 9%;
         --muted: 0 0% 96%;
         --muted-foreground: 0 0% 45%;
-        --accent: 13 100% 50%;
+        --accent: 0 0% 4%;
         --accent-foreground: 0 0% 100%;
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 90%;
-        --input: 0 0% 90%;
-        --ring: 0 0% 2%;
+        --border: 0 0% 92%;
+        --input: 0 0% 92%;
+        --ring: 0 0% 4%;
         --radius: 0rem;
     }
 }
