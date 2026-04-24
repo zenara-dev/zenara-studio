@@ -1,8 +1,7 @@
 import { ArrowUpRight, InstagramLogo } from "@phosphor-icons/react";
 import Logo from "@/components/Logo";
 
-const INSTAGRAM_URL =
-  "https://www.instagram.com/zenera.studio?igsh=MWh1ZzNzNDUxcnQwOA==";
+const INSTAGRAM_URL = "https://www.instagram.com/zenara.studio_";
 
 export default function Footer() {
   return (
@@ -76,7 +75,7 @@ export default function Footer() {
                   className="zn-link inline-flex items-center gap-2"
                 >
                   <InstagramLogo size={16} weight="regular" />
-                  @zenera.studio
+                  @zenara.studio_
                   <ArrowUpRight size={12} weight="bold" />
                 </a>
               </li>
