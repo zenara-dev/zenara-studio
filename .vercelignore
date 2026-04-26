@@ -1,6 +1,10 @@
 backend/
-*.py
-*.pyc
-__pycache__/
-.env
-.env.*
+**/*.py
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
+**/venv/
+**/.env
+**/.env.*
+**/*.log
+**/test_reports/

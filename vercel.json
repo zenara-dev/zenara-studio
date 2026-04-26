@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "create-react-app",
+  "buildCommand": "cd frontend && yarn install --frozen-lockfile=false && yarn build",
+  "outputDirectory": "frontend/build",
+  "installCommand": "echo 'install handled in buildCommand'",
+  "ignoreCommand": "exit 0"
+}
