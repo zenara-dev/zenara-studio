@@ -88,6 +88,12 @@ export default function Pricing() {
               <span className="zn-display-italic">No monthly ransom</span> —
               just elite-tier maintenance.
             </p>
+            <div className="mt-6 max-w-2xl border-l-2 border-[var(--zn-ink)] pl-5 py-1">
+              <p className="zn-display-italic text-base md:text-lg leading-snug text-[var(--zn-ink)]">
+                "We hand over the code we build — we don't hold your website
+                hostage."
+              </p>
+            </div>
           </div>
         </div>
 
