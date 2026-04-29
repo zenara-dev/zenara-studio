@@ -2,12 +2,12 @@ import { Check, ArrowUpRight } from "@phosphor-icons/react";
 
 const BUNDLES = [
   {
-    key: "starter-identity",
-    badge: "01 / Starter Identity Pack",
-    name: "Starter Identity",
-    price: "₹8,000",
+    key: "standard",
+    badge: "01 / Standard",
+    name: "Standard",
+    price: "₹12,000",
     priceNote: "one-time",
-    lead: "The essentials to show up professionally online — logo, a pair of flyers and a digital card.",
+    lead: "The essentials to show up professionally online — logo, flyers and a digital card.",
     features: [
       "1 Custom Professional Logo",
       "2 Digital Marketing Flyers",
@@ -15,13 +15,13 @@ const BUNDLES = [
       "1 Revision included",
     ],
     delivery: "~5 days",
-    cta: "Book Starter Pack",
+    cta: "Book Standard",
   },
   {
-    key: "professional-brand",
-    badge: "02 / Professional Brand Pack",
-    name: "Professional Brand",
-    price: "₹12,000",
+    key: "pro",
+    badge: "02 / Pro",
+    name: "Pro",
+    price: "₹15,000",
     priceNote: "one-time",
     lead: "A rounded brand kit for founders ready to look sharp across web, GMB and social.",
     features: [
@@ -32,16 +32,16 @@ const BUNDLES = [
       "2 Revisions included",
     ],
     delivery: "~7 days",
-    cta: "Book Brand Pack",
+    cta: "Book Pro",
     featured: true,
   },
   {
-    key: "established-clinic",
-    badge: "03 / Established Clinic Bundle",
-    name: "Established Clinic",
-    price: "₹18,000",
+    key: "elite",
+    badge: "03 / Elite",
+    name: "Elite",
+    price: "₹20,000",
     priceNote: "one-time",
-    lead: "A premium set for established practices — including a signature animated logo in 4K.",
+    lead: "A premium set for market leaders — including a signature animated logo in 4K.",
     features: [
       "1 Custom Professional Logo",
       "1 Signature Animated Logo (4K)",
@@ -51,7 +51,7 @@ const BUNDLES = [
       "Priority Support & 3 Revisions",
     ],
     delivery: "~10 days",
-    cta: "Book Clinic Bundle",
+    cta: "Book Elite",
   },
 ];
 

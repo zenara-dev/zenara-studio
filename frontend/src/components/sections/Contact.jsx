@@ -16,21 +16,22 @@ const SERVICES = [
 
 const TIERS_BY_SERVICE = {
   website: [
-    { key: "one-page", label: "One Page", price: "₹15k" },
-    { key: "multi-page", label: "Multi Page", price: "₹30k" },
-    { key: "special-apis", label: "Special APIs", price: "₹40k+" },
+    { key: "vector", label: "Vector", price: "₹50k + ₹2,499/mo" },
+    { key: "kinetic", label: "Kinetic", price: "₹75k + ₹5,000/mo" },
+    { key: "apex", label: "Apex", price: "₹1L + ₹8,000/mo" },
   ],
   brand: [
-    { key: "starter-identity", label: "Starter Identity", price: "₹8k" },
-    { key: "professional-brand", label: "Professional Brand", price: "₹12k" },
-    { key: "established-clinic", label: "Established Clinic", price: "₹18k" },
+    { key: "standard", label: "Standard", price: "₹12k" },
+    { key: "pro", label: "Pro", price: "₹15k" },
+    { key: "elite", label: "Elite", price: "₹20k" },
   ],
 };
 
 const BUDGETS = [
-  { key: "30k", label: "₹30,000" },
   { key: "50k", label: "₹50,000" },
-  { key: "1lakh", label: "₹1 Lakh+" },
+  { key: "75k", label: "₹75,000" },
+  { key: "1lakh", label: "₹1,00,000" },
+  { key: "custom", label: "Custom" },
 ];
 
 const INITIAL = {
@@ -44,12 +45,12 @@ const INITIAL = {
 
 // Map tier label from the pricing/identity CTA event → service + tier key
 const TIER_LABEL_TO_KEY = {
-  "One Page": { service: "website", tier: "one-page" },
-  "Multi Page": { service: "website", tier: "multi-page" },
-  "Special APIs": { service: "website", tier: "special-apis" },
-  "Starter Identity": { service: "brand", tier: "starter-identity" },
-  "Professional Brand": { service: "brand", tier: "professional-brand" },
-  "Established Clinic": { service: "brand", tier: "established-clinic" },
+  Vector: { service: "website", tier: "vector" },
+  Kinetic: { service: "website", tier: "kinetic" },
+  Apex: { service: "website", tier: "apex" },
+  Standard: { service: "brand", tier: "standard" },
+  Pro: { service: "brand", tier: "pro" },
+  Elite: { service: "brand", tier: "elite" },
 };
 
 export default function Contact() {
@@ -122,7 +123,7 @@ export default function Contact() {
     } catch (err) {
       toast.error("Could not send inquiry", {
         description:
-          "Please try again or email us at zdigitalassets93@gmail.com.",
+          "Please try again or email us at hello@zenerastudio.co.",
         icon: <Warning weight="bold" />,
       });
     } finally {
@@ -157,11 +158,11 @@ export default function Contact() {
             <div className="border-t border-[var(--zn-ink)] pt-6">
               <div className="eyebrow">Direct</div>
               <a
-                href="mailto:zdigitalassets93@gmail.com"
+                href="mailto:hello@zenerastudio.co"
                 data-testid="contact-email"
-                className="block mt-3 font-display text-xl md:text-2xl tracking-tight zn-link break-all"
+                className="block mt-3 zn-display text-2xl md:text-3xl tracking-tight zn-link break-all"
               >
-                zdigitalassets93@gmail.com
+                hello@zenerastudio.co
               </a>
             </div>
             <div className="mt-10 border-t border-[var(--zn-border)] pt-6">
@@ -297,17 +298,17 @@ export default function Contact() {
             {/* Budget selector */}
             <div className="mt-6">
               <div className="eyebrow mb-3">Budget</div>
-              <div className="grid grid-cols-3 gap-0 border border-[var(--zn-border)]">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border border-[var(--zn-border)]">
                 {BUDGETS.map((b, i) => (
                   <button
                     type="button"
                     key={b.key}
                     data-testid={`contact-budget-${b.key}`}
                     onClick={() => setForm({ ...form, budget: b.key })}
-                    className={`px-4 py-3 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors ${
-                      i !== BUDGETS.length - 1
-                        ? "border-r border-[var(--zn-border)]"
-                        : ""
+                    className={`px-4 py-3 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors border-[var(--zn-border)] ${
+                      i % 2 === 0 ? "border-r" : ""
+                    } ${i < 2 ? "border-b sm:border-b-0" : ""} ${
+                      i !== 1 && i !== BUDGETS.length - 1 ? "sm:border-r" : ""
                     } ${
                       form.budget === b.key
                         ? "bg-[var(--zn-ink)] text-white"

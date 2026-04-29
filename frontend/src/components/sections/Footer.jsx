@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="border-b border-white/15 pb-16 md:pb-24">
           <div className="eyebrow text-white/60">Let's talk</div>
           <a
-            href="mailto:zdigitalassets93@gmail.com"
+            href="mailto:hello@zenerastudio.co"
             data-testid="footer-cta-email"
             className="group mt-8 block zn-display leading-[0.9] text-[18vw] md:text-[14vw] hover:opacity-60 transition-opacity"
           >
@@ -53,9 +53,9 @@ export default function Footer() {
                 <a
                   className="zn-link"
                   data-testid="footer-email"
-                  href="mailto:zdigitalassets93@gmail.com"
+                  href="mailto:hello@zenerastudio.co"
                 >
-                  zdigitalassets93@gmail.com
+                  hello@zenerastudio.co
                 </a>
               </li>
               <li>Indiranagar, Bangalore</li>

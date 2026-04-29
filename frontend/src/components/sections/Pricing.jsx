@@ -2,59 +2,65 @@ import { Check, ArrowUpRight } from "@phosphor-icons/react";
 
 const TIERS = [
   {
-    key: "one-page",
+    key: "vector",
     badge: "Tier 01",
-    name: "One Page",
-    price: "₹15,000",
-    priceNote: "starting",
-    lead: "A single, razor-sharp scrollable page. Perfect for launches, events and founder profiles.",
+    name: "Vector",
+    price: "₹50,000",
+    priceNote: "build fee",
+    monthly: "₹2,499 / mo",
+    monthlyNote: "maintenance",
+    lead: "Full-scale coded infrastructure. You own every line.",
     features: [
-      "Custom design (Figma)",
-      "Responsive, mobile-first build",
-      "Contact form + email notifications",
-      "Basic on-page SEO",
-      "Vercel / Cloudflare deploy",
-      "1 round of revisions",
-    ],
-    delivery: "~7 days",
-    cta: "Book One Page",
-  },
-  {
-    key: "multi-page",
-    badge: "Tier 02 / Most popular",
-    name: "Multi Page",
-    price: "₹30,000",
-    priceNote: "starting",
-    lead: "Up to 5 pages with a lightweight CMS. Ideal for brands, studios and startups post-seed.",
-    features: [
-      "Everything in One Page",
-      "Up to 5 pages + blog/case studies",
-      "CMS integration (Sanity / Contentful)",
-      "Advanced SEO + schema",
-      "Analytics + Plausible/GA4",
-      "2 rounds of revisions",
+      "Custom-coded responsive site (you own the code)",
+      "Up to 5 pages + lightweight CMS",
+      "On-page SEO + analytics setup",
+      "Hosting, SSL & uptime monitoring",
+      "Monthly: security patches, backups, content updates",
+      "2 rounds of revisions during build",
     ],
     delivery: "~14 days",
-    cta: "Book Multi Page",
+    cta: "Engage Vector",
+  },
+  {
+    key: "kinetic",
+    badge: "Tier 02 / Most chosen",
+    name: "Kinetic",
+    price: "₹75,000",
+    priceNote: "build fee",
+    monthly: "₹5,000 / mo",
+    monthlyNote: "maintenance",
+    lead: "Advanced integrations. Booking, payments, systems — all yours.",
+    features: [
+      "Everything in Vector",
+      "Bookings, payments & checkout",
+      "Auth, dashboards & CRM connections",
+      "Performance + conversion analytics",
+      "Monthly: priority support & integration upkeep",
+      "3 rounds of revisions during build",
+    ],
+    delivery: "~21 days",
+    cta: "Engage Kinetic",
     featured: true,
   },
   {
-    key: "special-apis",
+    key: "apex",
     badge: "Tier 03",
-    name: "Special APIs",
-    price: "₹40,000+",
-    priceNote: "quote-based",
-    lead: "API-heavy product surfaces. Auth, dashboards, payments, LLMs and everything custom.",
+    name: "Apex",
+    price: "₹1,00,000",
+    priceNote: "build fee",
+    monthly: "₹8,000 / mo",
+    monthlyNote: "maintenance",
+    lead: "Complete digital dominance. Built for market leaders.",
     features: [
-      "Everything in Multi Page",
-      "Auth (JWT / OAuth / Clerk)",
-      "Database architecture (Postgres / Mongo)",
-      "Stripe / Razorpay checkout",
-      "LLM, webhooks & custom APIs",
+      "Everything in Kinetic",
+      "Custom APIs & advanced architecture",
+      "Database design & admin panels",
+      "Full SEO, content strategy, A/B testing",
+      "Monthly: dedicated engineer, weekly improvements",
       "Unlimited revisions during sprint",
     ],
-    delivery: "3–6 weeks",
-    cta: "Request Quote",
+    delivery: "4–6 weeks",
+    cta: "Engage Apex",
   },
 ];
 
@@ -77,14 +83,15 @@ export default function Pricing() {
                 No retainers to begin.
               </span>
             </h2>
-            <p className="mt-5 max-w-2xl text-base md:text-lg text-[var(--zn-muted)]">
-              Flat project fees. Fixed scope. A deliberate, unhurried process —
-              rooted in clarity, finished with care. All figures exclude GST.
+            <p className="mt-6 max-w-2xl text-base md:text-lg text-[var(--zn-ink)]">
+              We build code you own.{" "}
+              <span className="zn-display-italic">No monthly ransom</span> —
+              just elite-tier maintenance.
             </p>
           </div>
         </div>
 
-        {/* Pricing grid — border-collapse style */}
+        {/* Pricing grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 border border-[var(--zn-ink)]">
           {TIERS.map((t, idx) => (
             <article
@@ -102,7 +109,7 @@ export default function Pricing() {
               <div className="flex items-center justify-between">
                 <span
                   className={`font-mono text-[11px] tracking-[0.22em] uppercase ${
-                    t.featured ? "text-[var(--zn-accent)]" : "text-[var(--zn-muted)]"
+                    t.featured ? "text-[var(--zn-silver)]" : "text-[var(--zn-muted)]"
                   }`}
                 >
                   {t.badge}
@@ -121,7 +128,7 @@ export default function Pricing() {
                 {t.name}
               </h3>
 
-              {/* Price */}
+              {/* Build fee */}
               <div className="mt-6 flex items-baseline gap-3">
                 <span
                   data-testid={`pricing-price-${t.key}`}
@@ -138,13 +145,32 @@ export default function Pricing() {
                 </span>
               </div>
 
+              {/* Monthly */}
+              <div className="mt-3 flex items-baseline gap-3">
+                <span
+                  data-testid={`pricing-monthly-${t.key}`}
+                  className={`zn-display text-xl md:text-2xl ${
+                    t.featured ? "text-white" : "text-[var(--zn-ink)]"
+                  }`}
+                >
+                  + {t.monthly}
+                </span>
+                <span
+                  className={`font-mono text-[10px] tracking-[0.2em] uppercase ${
+                    t.featured ? "text-white/60" : "text-[var(--zn-muted)]"
+                  }`}
+                >
+                  {t.monthlyNote}
+                </span>
+              </div>
+
               {/* Lead */}
               <p
-                className={`mt-5 text-sm md:text-base leading-relaxed ${
-                  t.featured ? "text-white/80" : "text-[var(--zn-ink)]"
+                className={`mt-6 text-sm md:text-base leading-relaxed zn-display-italic ${
+                  t.featured ? "text-white/90" : "text-[var(--zn-ink)]"
                 }`}
               >
-                {t.lead}
+                "{t.lead}"
               </p>
 
               {/* Divider */}
@@ -161,7 +187,7 @@ export default function Pricing() {
                     <Check
                       size={16}
                       weight="bold"
-                      className={t.featured ? "text-[var(--zn-accent)] mt-1" : "text-[var(--zn-ink)] mt-1"}
+                      className={t.featured ? "text-[var(--zn-silver)] mt-1" : "text-[var(--zn-ink)] mt-1"}
                     />
                     <span className={t.featured ? "text-white/90" : ""}>{f}</span>
                   </li>
@@ -180,7 +206,7 @@ export default function Pricing() {
                 }}
                 className={`mt-10 inline-flex items-center justify-between w-full px-5 py-4 border font-mono text-[12px] tracking-[0.18em] uppercase transition-colors ${
                   t.featured
-                    ? "border-white text-white hover:bg-[var(--zn-accent)] hover:border-[var(--zn-accent)]"
+                    ? "border-white text-white hover:bg-white hover:text-[var(--zn-ink)]"
                     : "border-[var(--zn-ink)] text-[var(--zn-ink)] hover:bg-[var(--zn-ink)] hover:text-white"
                 }`}
               >
@@ -192,7 +218,7 @@ export default function Pricing() {
         </div>
 
         <p className="mt-8 eyebrow">
-          * All engagements begin with a free 30-min scoping call.
+          * International clients welcome. Pricing available in USD, GBP & AED on request.
         </p>
       </div>
     </section>
