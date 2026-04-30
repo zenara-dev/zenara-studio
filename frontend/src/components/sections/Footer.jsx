@@ -41,6 +41,7 @@ export default function Footer() {
               <li><a className="zn-link" href="#services">Services</a></li>
               <li><a className="zn-link" href="#pricing">Pricing</a></li>
               <li><a className="zn-link" href="#identity">Identity</a></li>
+              <li><a className="zn-link" href="#work">Work</a></li>
               <li><a className="zn-link" href="#process">Process</a></li>
               <li><a className="zn-link" href="#contact">Contact</a></li>
             </ul>
